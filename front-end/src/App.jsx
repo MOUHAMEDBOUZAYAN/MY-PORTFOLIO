@@ -1,13 +1,7 @@
 import React from "react";
 // components
-// import Banner from "./components/Banner";
-// import Header from "./components/Header";
+import Home from "./components/Home";
 import Nav from "./components/Nav";
-// import About from "./components/About";
-// import Services from "./components/Services";
-// import Work from "./components/Work";
-// import Contact from "./components/Contact";
-// import background image
 import BackgroundImage from "./assets/background.png";
 
 const App = () => {
@@ -20,13 +14,9 @@ const App = () => {
         backgroundPosition: "center",
       }}
     >
+      <Home />
       <Nav />
-      {/* <Header />
-      <Banner />
-      <About />
-      <Services />
-      <Work />
-      <Contact /> */}
+     
       <div className="h-[4000px]"></div>
     </div>
   );
