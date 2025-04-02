@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import profilePhoto from '../assets/profile.png';
 import { 
   FaCode, 
   FaServer, 
@@ -23,7 +24,7 @@ const About = () => {
       bio: "Passionné par la création d'applications web modernes et performantes. Je combine expertise technique et sens du design pour développer des solutions innovantes.",
       experience: "1+ ans d'expérience",
       location: "Beni Mellal, Maroc",
-      image: "profile.jpg",
+      image: profilePhoto,
       highlights: [
         "Développement d'applications web complètes",
         "Conception d'interfaces utilisateur intuitives",
