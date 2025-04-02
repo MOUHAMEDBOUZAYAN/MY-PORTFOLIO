@@ -15,6 +15,50 @@ import {
 } from 'react-icons/fa';
 import { SiJavascript, SiTailwindcss, SiFirebase, SiAdobexd } from 'react-icons/si';
 
+// Define animation variants outside the component so they can be reused
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 10
+    }
+  }
+};
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.5,
+      ease: "easeOut",
+      staggerChildren: 0.1,
+      when: "beforeChildren"
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -20,
+    transition: { duration: 0.3 } 
+  }
+};
+
 const About = () => {
   const [activeSection, setActiveSection] = useState('description');
 
@@ -54,27 +98,26 @@ const About = () => {
     }
   };
 
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    },
-    exit: { opacity: 0, y: -20 }
-  };
-
   const navItems = [
     { id: 'description', icon: <FaUser className="mr-2" />, label: 'Profil' },
     { id: 'skills', icon: <FaCode className="mr-2" />, label: 'Compétences' }
   ];
 
   return (
-    <section id="about" className="min-h-screen py-20 px-4 sm:px-8 bg-gray-900 text-white">
-      <nav className="flex justify-center mb-12 sticky top-0 z-10 bg-gray-800/80 backdrop-blur-sm py-2">
+    <motion.section 
+      id="about" 
+      className="min-h-screen py-20 px-4 sm:px-8 bg-gray-900 text-white"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.nav 
+        className="flex justify-center mb-12 sticky top-0 z-10 bg-gray-800/80 backdrop-blur-sm py-2"
+        variants={itemVariants}
+      >
         <div className="flex space-x-1 bg-gray-700 rounded-full p-1 shadow-inner">
           {navItems.map((item) => (
-            <button
+            <motion.button
               key={item.id}
               onClick={() => setActiveSection(item.id)}
               className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all ${
@@ -82,35 +125,38 @@ const About = () => {
                   ? 'bg-blue-600 text-white shadow-md' 
                   : 'text-gray-300 hover:bg-gray-600'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              variants={itemVariants}
             >
               {item.icon}
               {item.label}
-            </button>
+            </motion.button>
           ))}
         </div>
-      </nav>
+      </motion.nav>
 
       <div className="max-w-4xl mx-auto">
         <AnimatePresence mode="wait">
           {activeSection === 'description' && (
-            <ProfileSection data={profileData.description} variants={sectionVariants} />
+            <ProfileSection data={profileData.description} />
           )}
           {activeSection === 'skills' && (
-            <SkillsSection data={profileData.skills} variants={sectionVariants} />
+            <SkillsSection data={profileData.skills} />
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
-const ProfileSection = ({ data, variants }) => (
+const ProfileSection = ({ data }) => (
   <motion.div
     key="description"
-    variants={variants}
     initial="hidden"
     animate="visible"
     exit="exit"
+    variants={sectionVariants}
     className="bg-gray-800 rounded-xl shadow-lg overflow-hidden"
   >
     <div className="p-8">
@@ -118,6 +164,8 @@ const ProfileSection = ({ data, variants }) => (
         <motion.div 
           className="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg relative"
           whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+          variants={itemVariants}
         >
           <img 
             src={data.image} 
@@ -126,53 +174,101 @@ const ProfileSection = ({ data, variants }) => (
           />
           <div className="absolute inset-0 rounded-full border-4 border-transparent hover:border-blue-400 transition-all duration-300" />
         </motion.div>
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold text-white mb-2">{data.title}</h2>
-          <p className="text-gray-300 mb-4">{data.bio}</p>
+        <motion.div 
+          className="flex-1"
+          variants={containerVariants}
+        >
+          <motion.h2 
+            className="text-3xl font-bold text-white mb-2"
+            variants={itemVariants}
+          >
+            {data.title}
+          </motion.h2>
+          <motion.p 
+            className="text-gray-300 mb-4"
+            variants={itemVariants}
+          >
+            {data.bio}
+          </motion.p>
           
-          <div className="mb-4">
-            <p className="text-blue-400 font-medium mb-2">Points forts :</p>
+          <motion.div 
+            className="mb-4"
+            variants={itemVariants}
+          >
+            <motion.p 
+              className="text-blue-400 font-medium mb-2"
+              variants={itemVariants}
+            >
+              Points forts :
+            </motion.p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {data.highlights.map((highlight, index) => (
-                <li key={index} className="flex items-center">
+                <motion.li 
+                  key={index} 
+                  className="flex items-center"
+                  variants={itemVariants}
+                  custom={index}
+                  whileHover={{ x: 5 }}
+                >
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
                   <span className="text-gray-300">{highlight}</span>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
           
-          <div className="flex flex-wrap gap-4 mt-4">
-            <div className="flex items-center bg-gray-700/50 px-3 py-1 rounded-full">
+          <motion.div 
+            className="flex flex-wrap gap-4 mt-4"
+            variants={itemVariants}
+          >
+            <motion.div 
+              className="flex items-center bg-gray-700/50 px-3 py-1 rounded-full"
+              whileHover={{ scale: 1.05 }}
+            >
               <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
               <span className="text-gray-300">{data.experience}</span>
-            </div>
-            <div className="flex items-center bg-gray-700/50 px-3 py-1 rounded-full">
+            </motion.div>
+            <motion.div 
+              className="flex items-center bg-gray-700/50 px-3 py-1 rounded-full"
+              whileHover={{ scale: 1.05 }}
+            >
               <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
               <span className="text-gray-300">{data.location}</span>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   </motion.div>
 );
 
-const SkillsSection = ({ data, variants }) => (
+const SkillsSection = ({ data }) => (
   <motion.div
     key="skills"
-    variants={variants}
     initial="hidden"
     animate="visible"
     exit="exit"
+    variants={sectionVariants}
   >
-    <h2 className="text-3xl font-bold text-center mb-8 text-white">Mes Compétences Techniques</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <motion.h2 
+      className="text-3xl font-bold text-center mb-8 text-white"
+      variants={itemVariants}
+    >
+      Mes Compétences Techniques
+    </motion.h2>
+    <motion.div 
+      className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      variants={containerVariants}
+    >
       {Object.entries(data).map(([category, skills]) => (
         <motion.div
           key={category}
-          variants={variants}
           className="bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+          variants={itemVariants}
+          whileHover={{ 
+            y: -5,
+            transition: { duration: 0.2 }
+          }}
         >
           <div className="flex items-center mb-4">
             <div className="text-2xl mr-3">
@@ -186,8 +282,13 @@ const SkillsSection = ({ data, variants }) => (
             </h3>
           </div>
           <ul className="space-y-4">
-            {skills.map((skill) => (
-              <li key={skill.name}>
+            {skills.map((skill, index) => (
+              <motion.li 
+                key={skill.name}
+                variants={itemVariants}
+                custom={index}
+                whileHover={{ scale: 1.02 }}
+              >
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center">
                     <span className="text-xl mr-2">{skill.icon}</span>
@@ -196,22 +297,24 @@ const SkillsSection = ({ data, variants }) => (
                   <span className="text-sm text-blue-400">{skill.level}%</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div 
+                  <motion.div 
                     className="h-2 rounded-full" 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${skill.level}%` }}
+                    transition={{ duration: 1, delay: index * 0.1 }}
                     style={{
-                      width: `${skill.level}%`,
                       backgroundColor: 
                         skill.level > 85 ? '#60a5fa' : 
                         skill.level > 70 ? '#3b82f6' : '#93c5fd'
                     }}
                   />
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </motion.div>
       ))}
-    </div>
+    </motion.div>
   </motion.div>
 );
 

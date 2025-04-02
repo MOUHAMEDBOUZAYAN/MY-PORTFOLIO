@@ -38,7 +38,7 @@ function Nav() {
                 key={item.id}
                 href="/resume.pdf"
                 download="Your_Resume.pdf"
-                className={`group cursor-pointer w-12 h-12 sm:w-14 sm:h-14 flex flex-col items-center justify-center transition-all ${activeLink === item.id ? `${item.color} scale-110` : 'text-white/70 hover:' + item.color}`}
+                className={`group cursor-pointer w-12 h-12 sm:w-14 sm:h-14 flex flex-col items-center justify-center transition-all ${activeLink === item.id ? `${item.color} scale-110` : 'text-white/70 hover:text-white'}`}
                 onClick={() => setActiveLink(item.id)}
               >
                 <NavIcon icon={item.icon} label={item.label} />
@@ -50,7 +50,7 @@ function Nav() {
                 smooth={true}
                 spy={true}
                 onSetActive={() => setActiveLink(item.id)}
-                className={`group cursor-pointer w-12 h-12 sm:w-14 sm:h-14 flex flex-col items-center justify-center transition-all ${activeLink === item.id ? `${item.color} scale-110` : 'text-white/70 hover:' + item.color}`}
+                className={`group cursor-pointer w-12 h-12 sm:w-14 sm:h-14 flex flex-col items-center justify-center transition-all ${activeLink === item.id ? `${item.color} scale-110` : 'text-white/70 hover:text-white'}`}
               >
                 <NavIcon icon={item.icon} label={item.label} />
               </Link>
@@ -64,10 +64,10 @@ function Nav() {
 
 const NavIcon = ({ icon, label }) => (
   <div className="relative flex items-center justify-center">
-    <div className="transition-transform duration-300 group-hover:scale-110">
+    <div className="transition-all duration-300 group-hover:scale-125">
       {icon}
     </div>
-    <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-white">
+    <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap">
       {label}
     </span>
   </div>
