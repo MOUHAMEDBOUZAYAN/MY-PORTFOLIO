@@ -32,7 +32,7 @@ const Home = () => {
     { icon: <FaFacebook />, url: "https://facebook.com/yourprofile", color: "hover:text-blue-600" },
     { icon: <FaInstagram />, url: "https://instagram.com/yourprofile", color: "hover:text-pink-600" },
     { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourprofile", color: "hover:text-blue-500" },
-    { icon: <FaGithub />, url: "https://github.com/yourprofile", color: "hover:text-white" }
+    { icon: <FaGithub />, url: "https://github.com/MOUHAMEDBOUZAYAN", color: "hover:text-white" }
   ];
 
   return (
