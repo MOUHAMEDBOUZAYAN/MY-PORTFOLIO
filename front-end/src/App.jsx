@@ -8,18 +8,18 @@ import BackgroundImage from "./assets/background.png";
 const App = () => {
   return (
     <div
-      className="bg-no-repeat bg-cover overflow-hidden"
-      style={{
-        backgroundImage: `url(${BackgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      // className="bg-no-repeat bg-cover overflow-hidden"
+      // style={{
+      //   backgroundImage: `url(${BackgroundImage})`,
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
     >
       <Home />
       <About />
       <Nav />
      
-      <div className="h-[4000px]"></div>
+      {/* <div className="h-[4000px]"></div> */}
     </div>
   );
 };
