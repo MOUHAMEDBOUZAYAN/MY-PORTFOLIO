@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import About from "./components/About";
-import BackgroundImage from "./assets/background.png";
+import Projects from "./components/Projects";
 
 const App = () => {
   return (
@@ -17,6 +17,7 @@ const App = () => {
     >
       <Home />
       <About />
+      <Projects />
       <Nav />
      
       {/* <div className="h-[4000px]"></div> */}

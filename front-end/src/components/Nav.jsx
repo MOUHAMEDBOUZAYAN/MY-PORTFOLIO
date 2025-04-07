@@ -52,7 +52,7 @@ const Nav = () => {
 
       {/* Services */}
       <Link 
-        to="services" 
+        to="projects" 
         smooth={true}
         className="relative group hover:cursor-pointer hover:bg-slate-800 p-2 rounded-full transition-all duration-500"
       >
@@ -69,7 +69,7 @@ const Nav = () => {
           />
         </svg>
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-max px-2 py-1 text-white bg-black rounded-md opacity-0 transform scale-50 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
-          Services
+          Projects
         </div>
       </Link>
 
