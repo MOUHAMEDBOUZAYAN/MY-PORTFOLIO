@@ -1,13 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
+// import Image from 'next/image';
 
 const projects = [
   {
     title: "Modern E-Commerce",
     description: "Next.js e-commerce with Stripe payments and Sanity CMS",
     tags: ["Next.js", "Stripe", "Sanity"],
-    image: "/ecommerce.jpg",
+    image: "/images/projects/ecommerce.jpg",
     links: [
       { icon: <FiGithub />, url: "#" },
       { icon: <FiExternalLink />, url: "#" }
@@ -17,7 +18,7 @@ const projects = [
     title: "Task Management App",
     description: "Productivity app with drag-n-drop interface and Firebase auth",
     tags: ["React", "Firebase", "Tailwind"],
-    image: "/taskapp.jpg",
+    image: "/images/projects/management-app.png",
     links: [
       { icon: <FiGithub />, url: "#" },
       { icon: <FiExternalLink />, url: "#" }
@@ -27,7 +28,7 @@ const projects = [
     title: "AI Image Generator",
     description: "DALL-E powered image generation with share functionality",
     tags: ["OpenAI", "Node.js", "MongoDB"],
-    image: "/ai-generator.jpg",
+    image: "/images/projects/ai-generator.jpg",
     links: [
       { icon: <FiGithub />, url: "#" },
       { icon: <FiExternalLink />, url: "#" }
@@ -68,10 +69,14 @@ const Projects = () => {
               className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all"
             >
               <div className="relative h-48 overflow-hidden group">
-                <img 
+                <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} screenshot`}
+                  width={400}
+                  height={300}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  quality={85}
+                  priority={index < 2}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <div className="flex space-x-4">
@@ -81,6 +86,8 @@ const Projects = () => {
                         href={link.url}
                         className="p-2 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
                         aria-label={i === 0 ? "GitHub" : "Live Demo"}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
                         {link.icon}
                       </a>
